@@ -13,15 +13,19 @@
 int print_unsigned_int(unsigned int n)
 {
     int n_len;
+    char digit;
 
     n_len = get_num_len(n);
 	if (n >= 10)
 	{
-		ft_putnbr_fd(m / 10, fd);
-		ft_putnbr_fd(m % 10, fd);
+		print_unsigned_int(n / 10);
+		print_unsigned_int(n % 10);
 	}
 	else
-		ft_putchar_fd(m + '0', fd);
+    {
+        digit = n + '0';
+	    write(1, &digit, 1);
+    }
     return (n_len);
 }
 
