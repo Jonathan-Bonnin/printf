@@ -15,7 +15,7 @@
 int	ft_printf(const char *format, ...)
 {
 	int total_chars_printed;
-	// handle pdiuxX
+	// handle pxX
 	// comparison vs printf
 	// return nb of chars printed
 	// va_start, va_arg, va_copy, va_end
@@ -37,7 +37,7 @@ int decide_what_to_print(char c, va_list to_print)
 		return (print_string(to_print));
 	if (c == 'p') // pointer adr
 		return (0);
-	if (c == 'd' || c == 'i') // signed decimal int
+	if (c == 'd' || c == 'i')
 		return (print_signed_int(to_print));
 	if (c == 'u')
 		return (print_unsigned_int(to_print));
