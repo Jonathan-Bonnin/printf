@@ -10,15 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <unistd.h>  
+#include <stdarg.h>
+#include "print_numbers.c"
+#include "print_chars.c"
 
 int	ft_printf(const char *format, ...)
 {
-	int total_chars_printed;
-	// handle pxX
+	int 	total_chars_printed;
+	va_list	args;
+	// handle pxX, double check %
 	// comparison vs printf
 	// return nb of chars printed
-	// va_start, va_arg, va_copy, va_end
+	// va_arg: everytime it is called, it modifies argument_list so that the next time it is called
+	// it will return the next argument
+
+	// va_list
+	va_start(args, format);
 	total_chars_printed = 0;
 	while (*format) 
 	{
@@ -26,21 +34,22 @@ int	ft_printf(const char *format, ...)
 		format++;
 		total_chars_printed++;
 	}
+	va_end(args);
 	return (total_chars_printed);
 }
 
-int decide_what_to_print(char c, va_list to_print)
+int decide_what_to_print(char c, va_list args)
 {
 	if (c == 'c')
-		return (print_one_char(to_print)); 
+		return (print_one_char(va_arg(args, char))); 
 	if (c == 's')
-		return (print_string(to_print));
+		return (print_string(va_arg(args, char*)));
 	if (c == 'p') // pointer adr
 		return (0);
 	if (c == 'd' || c == 'i')
-		return (print_signed_int(to_print));
+		return (print_signed_int(va_arg(args, int)));
 	if (c == 'u')
-		return (print_unsigned_int(to_print));
+		return (print_unsigned_int(va_arg(args, unsigned int)));
 	if (c == 'x') // unsigned hexadecimal int
 		return (0);
 	if (c == 'X') // unsigned hexadecimal int (capital letter)

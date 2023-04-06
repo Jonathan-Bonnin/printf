@@ -10,6 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "print_chars.c"
+
+int get_num_len(unsigned int n);
+
 int print_unsigned_int(unsigned int n)
 {
     int n_len;

@@ -15,6 +15,6 @@
 
 int main (void)
 {
-	printf("%%");
+	printf("%d, %c", 42, 'n');
 	return (printf("123") - ft_printf("123"));
 }
