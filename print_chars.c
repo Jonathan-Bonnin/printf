@@ -10,25 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-print_one_char(char c)
+int print_one_char(char c)
 {
-    write(1, c, 1);
+    write(1, &c, 1);
     return (1);
 }
 
-print_percent_sign()
+int print_percent_sign()
 {
     return print_one_char('%');
 }
 
-print_string(char *c)
+int print_string(char *c)
 {
     int i;
 
     i = 0;
     while (c[i])
     {
-        write(1, c[i], 1);
+        write(1, &c[i], 1);
         i++;
     }
     return(i);

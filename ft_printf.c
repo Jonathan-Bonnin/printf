@@ -13,7 +13,8 @@
 #include <unistd.h>  
 #include <stdarg.h>
 #include "print_numbers.c"
-#include "print_chars.c"
+
+int decide_what_to_print(const char *c, va_list args);
 
 int	ft_printf(const char *format, ...)
 {
@@ -30,30 +31,35 @@ int	ft_printf(const char *format, ...)
 	total_chars_printed = 0;
 	while (*format) 
 	{
-		write(1, format, 1);
+		if (*format == '%')
+			total_chars_printed += decide_what_to_print(++format, args);
+		else
+		{
+			write(1, format, 1);
+			total_chars_printed++;
+		}
 		format++;
-		total_chars_printed++;
 	}
 	va_end(args);
 	return (total_chars_printed);
 }
 
-int decide_what_to_print(char c, va_list args)
+int decide_what_to_print(const char *c, va_list args)
 {
-	if (c == 'c')
-		return (print_one_char(va_arg(args, char))); 
-	if (c == 's')
+	if (*c == 'c')
+		return (print_one_char(va_arg(args, int))); 
+	if (*c == 's')
 		return (print_string(va_arg(args, char*)));
-	if (c == 'p') // pointer adr
+	if (*c == 'p') // pointer adr
 		return (0);
-	if (c == 'd' || c == 'i')
+	if (*c == 'd' || *c == 'i')
 		return (print_signed_int(va_arg(args, int)));
-	if (c == 'u')
+	if (*c == 'u')
 		return (print_unsigned_int(va_arg(args, unsigned int)));
-	if (c == 'x') // unsigned hexadecimal int
+	if (*c == 'x') // unsigned hexadecimal int
 		return (0);
-	if (c == 'X') // unsigned hexadecimal int (capital letter)
+	if (*c == 'X') // unsigned hexadecimal int (capital letter)
 		return (0);
-	if (c == '%')
+	if (*c == '%')
 		return (print_percent_sign());
 }
