@@ -15,8 +15,8 @@
 
 int main (void)
 {
-	ft_printf("%d, %s", 42, "Hehehe salut");
+	ft_printf("%d, %s, %c, %i, %u", -42, "Hehehe salut", 'n', -2147483647, 4294967294);
 	printf("\n");
-	printf("%d, %s", 42, "Hehehe salut");
+	printf("%d, %s, %c, %i, %u", -42, "Hehehe salut", 'n', -2147483647, 4294967294);
 	return (0);
 }
