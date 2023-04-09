@@ -12,8 +12,6 @@
 
 #include "print_chars.c"
 
-int get_num_len(unsigned int n);
-
 int print_unsigned_int(unsigned int n)
 {
     if(n < 10)
@@ -30,13 +28,6 @@ int print_signed_int(int n)
         return (1 + print_unsigned_int(-n));
     }
     return (print_unsigned_int(n));
-}
-
-int get_num_len(unsigned int n)
-{
-    if (n > 10)
-        return (1 + get_num_len(n / 10));
-    return (1);
 }
 
 int print_hex(int n, const char *hex_chars)
