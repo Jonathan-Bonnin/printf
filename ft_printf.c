@@ -3,28 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbonnin <jbonnin@42student.fr>             +#+  +:+       +#+        */
+/*   By: jonathan <jonathan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:33:55 by jbonnin           #+#    #+#             */
-/*   Updated: 2023/04/02 16:10:57 by jbonnin          ###   ########.fr       */
+/*   Updated: 2023/04/09 17:50:45 by jonathan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>  
-#include <stdarg.h>
-
-int decide_what_to_print(const char *format, va_list args);
-int print_one_char(char c);
-int print_string(char *c);
-int print_unsigned_int(unsigned int n);
-int print_signed_int(int n);
-int print_hex(long unsigned int n, const char *hex_chars);
+#include "ft_printf.h"
 
 int	ft_printf(const char *format, ...)
 {
 	int 	total_chars_printed;
 	va_list	args;
-	// comparison vs printf regarding number of chars printed
 	va_start(args, format);
 	total_chars_printed = 0;
 	while (*format) 
@@ -44,10 +35,12 @@ int	ft_printf(const char *format, ...)
 
 int decide_what_to_print(const char *format, va_list args)
 {
+	char* hex;
+	
 	if (*format == 'c')
 		return (print_one_char(va_arg(args, int))); 
 	if (*format == 's')
-		return (print_string(va_arg(args, char*)));
+		return (print_str(va_arg(args, char*)));
 	if (*format == 'd' || *format == 'i')
 		return (print_signed_int(va_arg(args, int)));
 	if (*format == 'u')
@@ -58,12 +51,8 @@ int decide_what_to_print(const char *format, va_list args)
 		return (print_hex(va_arg(args, unsigned int), "0123456789ABCDEF"));
 	if (*format == '%')
 		return (print_one_char('%'));
-	if (*format == 'p')
-	{
-		char* hex_val = "0123456789abcdef";
-		print_string("0x");
-		return (2 + print_hex(va_arg(args, long unsigned int), hex_val));
-	}
+	hex = "0123456789abcdef";
+	return (print_str("0x") + print_hex(va_arg(args, long unsigned int), hex));
 }
 
 int print_one_char(char c)
@@ -72,7 +61,7 @@ int print_one_char(char c)
     return (1);
 }
 
-int print_string(char *c)
+int print_str(char *c)
 {
     int i;
 

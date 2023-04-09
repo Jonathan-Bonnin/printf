@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbonnin <jbonnin@42student.fr>             +#+  +:+       +#+        */
+/*   By: jonathan <jonathan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:40:06 by jbonnin           #+#    #+#             */
-/*   Updated: 2023/03/19 16:19:27 by jbonnin          ###   ########.fr       */
+/*   Updated: 2023/04/09 17:54:48 by jonathan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.c"
-#include <stdio.h>
-#include <stdint.h>
-#include <unistd.h>
-
 int main (void)
 {
 	char *str = "Hehe salut";
