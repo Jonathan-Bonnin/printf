@@ -79,7 +79,7 @@ int print_string(char *c)
     i = 0;
     while (c[i])
     {
-        write(1, &c[i], 1);
+        print_one_char(c[i]);
         i++;
     }
     return(i);
