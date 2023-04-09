@@ -15,8 +15,15 @@
 
 int main (void)
 {
-	ft_printf("%d, %s, %c, %i, %u", -42, "Hehehe salut", 'n', -2147483647, 4294967294);
-	printf("\n");
-	printf("%d, %s, %c, %i, %u", -42, "Hehehe salut", 'n', -2147483647, 4294967294);
+	char *str = "Hehe salut";
+	int data = 0;
+	int data1 = 29;
+	int data2 = 4095;
+	int data3 = 4096;
+	int data4 = 13465;
+	printf("Hex OG: %x, %x, %X, %x, %x \n", data, data1, data2, data3, data4);
+	ft_printf("Hex ft: %x, %x, %X, %x, %x \n", data, data1, data2, data3, data4);
+	ft_printf("%d, %s, %c, %i, %u, %%\n", -42, str, 'n', -2147483647, 429496729);
+	printf("%d, %s, %c, %i, %u, %p, %%\n", -42, str, 'n', -2147483647, 429496729, &str);
 	return (0);
 }

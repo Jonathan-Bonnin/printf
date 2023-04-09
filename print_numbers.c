@@ -16,21 +16,10 @@ int get_num_len(unsigned int n);
 
 int print_unsigned_int(unsigned int n)
 {
-    int n_len;
-    char digit;
-
-    n_len = get_num_len(n);
-	if (n >= 10)
-	{
-		print_unsigned_int(n / 10);
-		print_unsigned_int(n % 10);
-	}
-	else
-    {
-        digit = n + '0';
-	    write(1, &digit, 1);
-    }
-    return (n_len);
+    if(n < 10)
+        return(print_one_char(n + '0'));
+    print_unsigned_int(n / 10);
+    return (1 + print_one_char((n % 10) + '0'));
 }
 
 int print_signed_int(int n)
@@ -48,4 +37,12 @@ int get_num_len(unsigned int n)
     if (n > 10)
         return (1 + get_num_len(n / 10));
     return (1);
+}
+
+int print_hex(int n, const char *hex_chars)
+{
+    if (n < 16)
+        return (print_one_char(hex_chars[n]));
+    print_hex(n / 16, hex_chars);
+    return (1 + print_one_char(hex_chars[n % 16]));
 }
