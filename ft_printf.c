@@ -57,5 +57,5 @@ int decide_what_to_print(const char *format, va_list args)
 	if (*format == 'X')
 		return (print_hex(va_arg(args, int), "0123456789ABCDEF"));
 	if (*format == '%')
-		return (print_percent_sign());
+		return (print_one_char('%'));
 }
