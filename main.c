@@ -12,6 +12,8 @@
 
 #include "ft_printf.c"
 #include <stdio.h>
+#include <stdint.h>
+#include <unistd.h>
 
 int main (void)
 {
@@ -21,9 +23,12 @@ int main (void)
 	int data2 = 4095;
 	int data3 = 4096;
 	int data4 = 13465;
-	printf("Hex OG: %x, %x, %X, %x, %x \n", data, data1, data2, data3, data4);
-	ft_printf("Hex ft: %x, %x, %X, %x, %x \n", data, data1, data2, data3, data4);
+	int data5 = -72;
+	   printf("Hex OG: %x, %x, %X, %x, %x, %x \n", data, data1, data2, data3, data4, data5);
+	ft_printf("Hex ft: %x, %x, %X, %x, %x, %x \n", data, data1, data2, data3, data4, data5);
+	   printf("%d, %s, %c, %i, %u, %%\n", -42, str, 'n', -2147483647, 429496729);
 	ft_printf("%d, %s, %c, %i, %u, %%\n", -42, str, 'n', -2147483647, 429496729);
-	printf("%d, %s, %c, %i, %u, %p, %%\n", -42, str, 'n', -2147483647, 429496729, &str);
+	   printf("OG str adr:%p\n", &str);
+	ft_printf("FT str adr:%p\n", &str);
 	return (0);
 }

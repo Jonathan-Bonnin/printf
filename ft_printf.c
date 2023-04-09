@@ -12,17 +12,19 @@
 
 #include <unistd.h>  
 #include <stdarg.h>
-#include "print_numbers.c"
 
 int decide_what_to_print(const char *format, va_list args);
+int print_one_char(char c);
+int print_string(char *c);
+int print_unsigned_int(unsigned int n);
+int print_signed_int(int n);
+int print_hex(long unsigned int n, const char *hex_chars);
 
 int	ft_printf(const char *format, ...)
 {
 	int 	total_chars_printed;
 	va_list	args;
-	// handle pxX
-	// comparison vs printf
-	// return nb of chars printed
+	// comparison vs printf regarding number of chars printed
 	va_start(args, format);
 	total_chars_printed = 0;
 	while (*format) 
@@ -46,16 +48,65 @@ int decide_what_to_print(const char *format, va_list args)
 		return (print_one_char(va_arg(args, int))); 
 	if (*format == 's')
 		return (print_string(va_arg(args, char*)));
-	if (*format == 'p') // pointer adr
-		return (0);
 	if (*format == 'd' || *format == 'i')
 		return (print_signed_int(va_arg(args, int)));
 	if (*format == 'u')
 		return (print_unsigned_int(va_arg(args, unsigned int)));
 	if (*format == 'x')
-		return (print_hex(va_arg(args, int), "0123456789abcdef"));	
+		return (print_hex(va_arg(args, unsigned int), "0123456789abcdef"));	
 	if (*format == 'X')
-		return (print_hex(va_arg(args, int), "0123456789ABCDEF"));
+		return (print_hex(va_arg(args, unsigned int), "0123456789ABCDEF"));
 	if (*format == '%')
 		return (print_one_char('%'));
+	if (*format == 'p')
+	{
+		char* hex_val = "0123456789abcdef";
+		print_string("0x");
+		return (2 + print_hex(va_arg(args, long unsigned int), hex_val));
+	}
+}
+
+int print_one_char(char c)
+{
+    write(1, &c, 1);
+    return (1);
+}
+
+int print_string(char *c)
+{
+    int i;
+
+    i = 0;
+    while (c[i])
+    {
+        write(1, &c[i], 1);
+        i++;
+    }
+    return(i);
+}
+
+int print_unsigned_int(unsigned int n)
+{
+    if(n < 10)
+        return(print_one_char(n + '0'));
+    print_unsigned_int(n / 10);
+    return (1 + print_one_char((n % 10) + '0'));
+}
+
+int print_signed_int(int n)
+{
+    if (n < 0)
+    {
+        print_one_char('-');
+        return (1 + print_unsigned_int(-n));
+    }
+    return (print_unsigned_int(n));
+}
+
+int print_hex(long unsigned int n, const char *hex_chars)
+{
+    if (n < 16)
+        return (print_one_char(hex_chars[n]));
+    print_hex(n / 16, hex_chars);
+    return (1 + print_one_char(hex_chars[n % 16]));
 }
