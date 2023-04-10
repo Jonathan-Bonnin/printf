@@ -1,5 +1,5 @@
-NAME = ft_printf.a
-SRC = ft_printf.c
+NAME = libftprintf.a
+SRC = ft_printf.c print_numbers.c
 OBJ = $(SRC:.c=.o)
 HEADERS = ../
 FLAGS = -Wall -Wextra -Werror
